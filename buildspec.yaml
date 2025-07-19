@@ -1,0 +1,24 @@
+version: 0.2
+env:
+  variables:
+    DOCKER_RIGISTRY_USERNAME: "saieerla"
+    DOCKER_RIGISTRY_PASSWORD: "Docker@123"
+    DOCKER_RIGISTRY_URL: "saieerla/webapp-qa"
+phases:
+  pre_build:
+    commands:
+    - echo "logging into the docker"
+    - docker login -u $DOCKER_RIGISTRY_USERNAME -p $DOCKER_RIGISTRY_PASSWORD
+    - echo "successfully loged in to docker"
+
+  build:
+    commands:
+    - echo "Building docker image"
+    - docker build -t my-webapp .
+    - echo "Tagging docker image"
+    - docker tag my-webapp saieerla/webapp-qa:my-webapp
+
+  post_build:
+    commands:
+    - echo "Pushin docker image to docker hub"
+    - docker push saieerla/webapp-qa:my-webapp

@@ -1,0 +1,21 @@
+version: 0.2
+
+env:
+
+  parameter-store:
+    DOCKER_RIGISTRY_USERNAME: /docker/username
+    DOCKER_RIGISTRY_PASSWORD: /docker/password
+    DOCKER_RIGISTRY_URL: /docker/url
+phases:
+  pre_build:
+    commands:
+    - docker login -u "$DOCKER_RIGISTRY_USERNAME" -p "$DOCKER_RIGISTRY_PASSWORD"
+  build:
+    commands:
+    - docker build -t my-webapp .
+    - docker tag my-webapp "$DOCKER_RIGISTRY_URL":my-webapp
+    
+  post_build:
+    commands:
+    - docker push "$DOCKER_RIGISTRY_URL":my-webapp
+    - echo "Build success"
