@@ -17,7 +17,7 @@ phases:
     - docker build -t my-webapp .
     - echo "Tagging docker image"
     #- docker tag my-webapp saieerla/webapp-qa:my-webapp
-    - doeckr tag saieerla/my-webapp:latest
+    - docker tag saieerla/my-webapp:latest
 
   post_build:
     commands:
